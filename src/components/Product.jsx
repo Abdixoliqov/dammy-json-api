@@ -1,8 +1,28 @@
+// reducers
+import { useSelector, useDispatch } from "react-redux";
+import { addShopCard } from "../features/shopCards/shopCardsSlice";
+
+// react icons
+import { TbShoppingBagPlus } from "react-icons/tb";
+
 import { Link } from "react-router-dom";
 
-function Product({ product }) {
+function Product({ product, added }) {
+  const shopCards = useSelector((state) => state.shopCards.value);
+  const dispatch = useDispatch();
+
+  console.log(shopCards, "array");
+
+  function shoppingCard(e) {
+    e.preventDefault();
+    dispatch(addShopCard(product));
+  }
+
   return (
-    <Link to={`/productInfo/${product.id}`} className="w-96 card md:w-[49%] lg:w-[32%] xl:w-[24%] shadow-md hover:shadow-xl duration-300 mx-auto">
+    <Link
+      to={`/productInfo/${product.id}`}
+      className="outline-none w-96 card md:w-[49%] lg:w-[32%] xl:w-[24%] shadow-md hover:shadow-xl duration-300 mx-auto relative"
+    >
       <div className="card bg-base-200 cursor-pointer">
         <figure>
           <img
@@ -25,6 +45,12 @@ function Product({ product }) {
             </div>
             <div className="badge badge-outline">{product.price}$</div>
           </div>
+        </div>
+        <div
+          onClick={shoppingCard}
+          className={`shop-card absolute top-4 right-4 w-6 h-6 rounded-full bg-slate-100 flex justify-center items-center ${added && 'bg-zinc-600'}`}
+        >
+          <TbShoppingBagPlus />
         </div>
       </div>
     </Link>

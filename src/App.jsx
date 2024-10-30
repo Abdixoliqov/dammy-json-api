@@ -9,6 +9,7 @@ import MainLayout from "./layouts/MainLayout";
 // pages
 import Home from "./pages/Home";
 import ProductInfo from "./pages/ProductInfo";
+import Cart from "./pages/Cart";
 
 // loader
 import { loader as HomeLoader } from "./pages/Home";
@@ -31,6 +32,10 @@ function App() {
         {
           path: '/productInfo/:id',
           element: <ProductInfo/>
+        },
+        {
+          path: '/cart',
+          element: <Cart/>
         }
       ]
 
