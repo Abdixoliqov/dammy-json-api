@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   const shopCards = useSelector((state) => state.shopCards.value);
+  const sum = useSelector((state)=>state.shopCards.summaPrice)
 
   return (
     <div className="sticky z-20 shadow-lg top-0 header  bg-base-300 md:py-2">
@@ -44,7 +45,7 @@ function Navbar() {
             >
               <div className="card-body">
                 <span className="text-lg font-bold">{shopCards.length} Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-info">Total: {sum}$</span>
                 <div className="card-actions">
                   <Link to={'/cart'} className="btn btn-primary btn-block">
                     View cart

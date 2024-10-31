@@ -11,7 +11,7 @@ function Product({ product, added }) {
   const shopCards = useSelector((state) => state.shopCards.value);
   const dispatch = useDispatch();
 
-  console.log(shopCards, "array");
+  // console.log(shopCards, "array");
 
   function shoppingCard(e) {
     e.preventDefault();
@@ -32,8 +32,8 @@ function Product({ product, added }) {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">
-            Product!
+          <h2 className="card-title capitalize">
+            {product.category}
             <div className="badge badge-secondary">NEW</div>
           </h2>
           <p>{product.title}</p>
@@ -48,9 +48,9 @@ function Product({ product, added }) {
         </div>
         <div
           onClick={shoppingCard}
-          className={`shop-card absolute top-4 right-4 w-6 h-6 rounded-full bg-slate-100 flex justify-center items-center ${added && 'bg-zinc-600'}`}
+          className={`shop-card absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-200 flex justify-center items-center ${added && 'bg-zinc-500'}`}
         >
-          <TbShoppingBagPlus />
+          <TbShoppingBagPlus style={{color: `${added ? '#ccc' : '#343434'}`}}/>
         </div>
       </div>
     </Link>

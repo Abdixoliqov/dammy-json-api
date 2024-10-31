@@ -10,7 +10,7 @@ function ProductInfo() {
   const { data, isPending, error } = useFetch(
     `https://dummyjson.com/products/${id}`
   );
-  console.log(data);
+  // console.log(data);
 
   return <div className="container">
     {
