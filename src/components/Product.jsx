@@ -1,21 +1,26 @@
 // reducers
 import { useSelector, useDispatch } from "react-redux";
-import { addShopCard } from "../features/shopCards/shopCardsSlice";
+import { addProduct } from "../features/shopCards/shopCardsSlice";
 
 // react icons
 import { TbShoppingBagPlus } from "react-icons/tb";
 
 import { Link } from "react-router-dom";
 
-function Product({ product, added }) {
-  const shopCards = useSelector((state) => state.shopCards.value);
-  const dispatch = useDispatch();
+import { useState, useEffect } from "react";
 
-  // console.log(shopCards, "array");
+// toastify
+import { ToastContainer, toast } from "react-toastify";
+
+function Product({ product, added }) {
+  const notify = () => toast("Added product!");
+
+  const dispatch = useDispatch();
 
   function shoppingCard(e) {
     e.preventDefault();
-    dispatch(addShopCard(product));
+    dispatch(addProduct(product));
+    notify();
   }
 
   return (
@@ -48,9 +53,13 @@ function Product({ product, added }) {
         </div>
         <div
           onClick={shoppingCard}
-          className={`shop-card absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-200 flex justify-center items-center ${added && 'bg-zinc-500'}`}
+          className={`shop-card absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-200 flex justify-center items-center ${
+            added && "bg-zinc-500"
+          }`}
         >
-          <TbShoppingBagPlus style={{color: `${added ? '#ccc' : '#343434'}`}}/>
+          <TbShoppingBagPlus
+            style={{ color: `${added ? "#ccc" : "#343434"}` }}
+          />
         </div>
       </div>
     </Link>

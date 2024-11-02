@@ -45,7 +45,7 @@ function Navbar() {
             >
               <div className="card-body">
                 <span className="text-lg font-bold">{shopCards.length} Items</span>
-                <span className="text-info">Total: {sum}$</span>
+                <span className="text-info">Total: {sum.toFixed(2)}$</span>
                 <div className="card-actions">
                   <Link to={'/cart'} className="btn btn-primary btn-block">
                     View cart

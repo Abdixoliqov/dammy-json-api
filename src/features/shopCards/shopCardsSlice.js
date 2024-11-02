@@ -9,47 +9,53 @@ const shopCardsSlice = createSlice({
   name: "shopCards",
   initialState: initialState,
   reducers: {
-    addShopCard: (state, action) => {
-      // state.value.some((item)=>item.id!=nimadir.id) &&
-      const newItem = action.payload;
+    addProduct: (state, action) => {
+      const newProduct = action.payload;
 
-      const exists = state.value.some((item) => item.id === newItem.id);
+      const checkProduct = state.value.find(
+        (item) => item.id === newProduct.id
+      );
 
-      const newObj = {
-        id: newItem.id,
-        title: newItem.title,
-        price: parseFloat(newItem.price.toFixed(2)),
-        images: newItem.images,
-        quantity: 1,
-        totalPrise: newItem.price,
-      };
-
-      if (!exists) {
-        // state.value.push(newItem)
-        state.value = [...state.value, newObj];
-        state.summaPrice += parseFloat(newItem.price.toFixed(2));
+      if (checkProduct) {
+        checkProduct.quantity += 1;
+        checkProduct.totalPrice += newProduct.price;
+        state.summaPrice += newProduct.price;
       } else {
-        state.value = state.value.filter((item) => item.id !== newItem.id);
-        state.summaPrice -= parseFloat(newItem.price.toFixed(2));
+        state.value.push({
+          ...newProduct,
+          quantity: 1,
+          totalPrice: newProduct.price,
+        });
+        state.summaPrice += newProduct.price;
       }
-      console.log(state.value, "newitem");
-      // state.value = [...state.value, nimadir]
-      // const totalArr = state.value.map((item) => item.price);
-      // const sum = totalArr.reduce((a, b) => a + b, 0);
-      // state.summaPrice=sum;
     },
-    deleteShopCard: (state, action) => {
-      state.value = state.value.filter((item) => item.id !== action.payload.id);
-      state.summaPrice -= action.payload.price;
+
+    incrementQuantity: (state, action) => {
+      const itemId = action.payload;
+      const checkItem = state.value.find((item) => item.id === itemId);
+
+      if (checkItem) {
+        checkItem.quantity += 1;
+        checkItem.totalPrice += checkItem.price;
+        state.summaPrice += checkItem.price;
+      }
     },
-    // sumPrices: (state, action) => {
-    //   const newArr = state.value.map((item) => item.price);
-    //   const sum = newArr.reduce((a, b) => a + b, 0);
-    //   state.summaPrice = sum;
-    // },
+    decrementQuantity: (state, action) => {
+      const itemId = action.payload;
+      const checkItem = state.value.find((item) => item.id === itemId);
+
+      if (checkItem && checkItem.quantity > 1) {
+        checkItem.quantity -= 1;
+        checkItem.totalPrice -= checkItem.price;
+        state.summaPrice -= checkItem.price;
+      } else {
+        state.value = state.value.filter((item) => item.id !== itemId);
+        state.summaPrice -= checkItem.price;
+      }
+    },
   },
 });
 
-export const { addShopCard, deleteShopCard, sumPrices } =
+export const { addProduct, incrementQuantity, decrementQuantity } =
   shopCardsSlice.actions;
 export default shopCardsSlice.reducer;
