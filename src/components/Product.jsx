@@ -45,7 +45,7 @@ function Product({ product, added }) {
           <div className="card-actions justify-end">
             <div className="badge badge-ghost">
               <span className="line-through text-[#ccc]">
-                {(product.price - product.discountPercentage).toFixed(2)}$
+                {(product.price + product.discountPercentage).toFixed(2)}$
               </span>
             </div>
             <div className="badge badge-outline">{product.price}$</div>
